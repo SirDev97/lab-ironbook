@@ -9,6 +9,7 @@ class App extends React.Component {
     search: "",
     student: true,
     teacher: true,
+    campus: "",
   };
 
   handleSearchInput = (event) => {
@@ -43,6 +44,14 @@ class App extends React.Component {
           (user.role === "student" && this.state.student) ||
           (user.role === "teacher" && event.target.checked)
         );
+      }),
+    });
+  };
+
+  handleCampusOption = (event) => {
+    this.setState({
+      users: users.filter((user) => {
+        return user.campus === event.target.value;
       }),
     });
   };
@@ -92,6 +101,7 @@ class App extends React.Component {
             />
             <label htmlFor="student">Student</label>
           </div>
+
           <div className="teacher">
             <input
               type="checkbox"
@@ -100,6 +110,20 @@ class App extends React.Component {
               onChange={this.handleTeacherCheck}
             />
             <label htmlFor="teacher">Teacher</label>
+          </div>
+
+          <div className="campus">
+            <label htmlFor="campus">Campus: </label>
+            <select
+              name="campus"
+              value={this.state.campus}
+              onChange={(event) => this.handleCampusOption(event)}
+            >
+              <option value={this.state.campus}>{this.state.campus}</option>
+              <option value="Berlin">Berlin</option>
+              <option value="Paris">Paris</option>
+              <option value="Lisbon">Lisbon</option>
+            </select>
           </div>
         </div>
         <table>
