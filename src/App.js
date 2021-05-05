@@ -7,6 +7,8 @@ class App extends React.Component {
   state = {
     users: users,
     search: "",
+    student: true,
+    teacher: true,
   };
 
   handleSearchInput = (event) => {
@@ -16,6 +18,30 @@ class App extends React.Component {
         return (
           user.firstName.toLowerCase().includes(event.target.value) ||
           user.lastName.toLowerCase().includes(event.target.value)
+        );
+      }),
+    });
+  };
+
+  handleStudentCheck = (event) => {
+    this.setState({
+      student: event.target.checked,
+      users: users.filter((user) => {
+        return (
+          (user.role === "student" && event.target.checked) ||
+          (user.role === "teacher" && this.state.teacher)
+        );
+      }),
+    });
+  };
+
+  handleTeacherCheck = (event) => {
+    this.setState({
+      teacher: event.target.checked,
+      users: users.filter((user) => {
+        return (
+          (user.role === "student" && this.state.student) ||
+          (user.role === "teacher" && event.target.checked)
         );
       }),
     });
@@ -56,6 +82,26 @@ class App extends React.Component {
           className="search"
           placeholder="Search by name"
         />
+        <div className="filter-options">
+          <div className="student">
+            <input
+              type="checkbox"
+              name="student"
+              checked={this.state.student}
+              onChange={this.handleStudentCheck}
+            />
+            <label htmlFor="student">Student</label>
+          </div>
+          <div className="teacher">
+            <input
+              type="checkbox"
+              name="teacher"
+              checked={this.state.teacher}
+              onChange={this.handleTeacherCheck}
+            />
+            <label htmlFor="teacher">Teacher</label>
+          </div>
+        </div>
         <table>
           <thead>
             <tr>

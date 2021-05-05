@@ -40,7 +40,18 @@ td {
 }
 
 .search {
-  width: 40vw;
+  width: 60vw;
   margin-bottom: 20px;
   padding: 5px;
+}
+
+.filter-options {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 20px 20px 0;
+  width: 60vw;
+}
+
+.teacher {
+  margin-left: 10px;
 }
